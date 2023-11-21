@@ -12,16 +12,32 @@
     <div class="container">
         <div class="parts">
             <h1>Registration Form</h1>
-            <form action="" class="form" id="userForm">
-                <input class="block" type="text" id="User Name" name="name" placeholder="Name" required>
-                <input class="block" type="email" id="Email Id" name="email" placeholder="Email" required>
-                <input class="block" type="password" id="Password" name="password" minlength="8" placeholder="Password"
-                    required>
-                <input class="block" type="date" id="DateofBirth" name="dob" placeholder="Dob" min="" max="" required>
-<input class="float" type="checkbox" name="atnc" id="atnc" required>
-                <label class="float" for="atnc">Accept terms and conditions : </label>
-                
-                <button class="block submit" type="submit">Submit</button>
+            <form action="" class="form" id="userForm"> <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+        </div>
+
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+        </div>
+
+        <div>
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" required>
+        </div>
+
+        <div>
+            <input type="checkbox" id="atnc" required>
+            <label for="atnc">Accept Terms and Conditions</label>
+        </div>
+
+        <button type="submit">Submit</button>
             </form>
         </div>
 
