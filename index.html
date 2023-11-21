@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WD 101 REG</title>
+<style>
+        /* Add your styles here */
+        #userForm div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        #userForm label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+<div class="parts">
+            <h1>Registration Form</h1>
+            <form action="" class="form" id="userForm">
+                <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+        </div>
+
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+        </div>
+
+        <div>
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" required>
+        </div>
+
+        <div>
+            <input type="checkbox" id="atnc" required>
+            <label for="atnc">Accept Terms and Conditions</label>
+        </div>
+
+        <button type="submit">Submit</button>
+            </form>
+        </div>
+    <div id="tableView"></div>
+
+    <script>
+        const userForm = document.getElementById("userForm");
+        const tableView = document.getElementById("tableView");
+
+        const getEntries = () => {
+            return JSON.parse(localStorage.getItem("userEntries")) || [];
+        }
+
+        const saveEntries = (entries) => {
+            localStorage.setItem("userEntries", JSON.stringify(entries));
+        }
+
+        const clearEntries = () => {
+            localStorage.removeItem("userEntries");
+        }
+
+        const displayEntries = () => {
+            const entries = getEntries();
+            const tableEntries = entries.map(({ name, email, password, dob, atnc }) => {
+                return `<tr>
+                            <td class="bor">${name}</td>
+                            <td class="bor">${email}</td>
+                            <td class="bor">${password}</td>
+                            <td class="bor">${dob}</td>
+                            <td class="bor">${atnc}</td>
+                        </tr>`;
+            }).join("\n");
+
+            const table = `<h1>Entries</h1>
+                           <table class="table">
+                               <tr class="bor">
+                                   <th class="bor">Name</th>
+                                   <th class="bor">Email</th>
+                                   <th class="bor">Password</th>
+                                   <th class="bor">Dob</th>
+                                   <th class="bor">Accepted terms?</th>
+                               </tr>
+                               ${tableEntries}
+                           </table>`;
+
+            tableView.innerHTML = table;
+        }
+
+        userForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const dob = document.getElementById("dob").value;
+            const atnc = document.getElementById("atnc").checked;
+
+            const entry = { name, email, password, dob, atnc };
+            const entries = getEntries();
+            entries.push(entry);
+            saveEntries(entries);
+
+            displayEntries();
+            userForm.reset(); // Clear the form after submission
+        });
+
+
+        window.addEventListener("beforeunload", () => {
+            // Clear entries when the window is closed or refreshed
+            clearEntries();
+        });
+
+        // Initial display
+        displayEntries();
+    </script>
+</div>
+</body>
+</html>
